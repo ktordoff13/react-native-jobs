@@ -19,9 +19,12 @@ const Welcome = () => {
   const [activeJobType, setActiveJobType] = useState("Full-time");
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.userName}>Hello Kuba</Text>
-      <Text style={styles.userMessage}>Find your perfect job</Text>
+    <View>
+      <View style={styles.container}>
+        <Text style={styles.userName}>Hello Kuba</Text>
+        <Text style={styles.userMessage}>Find your perfect job</Text>
+      </View>
+
       <View style={styles.searchContainer}>
         <View style={styles.searchWrapper}>
           <TextInput
@@ -32,6 +35,7 @@ const Welcome = () => {
             placeholderTextColor="gray"
           />
         </View>
+
         <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
           <Image
             source={icons.search}
@@ -40,22 +44,24 @@ const Welcome = () => {
           />
         </TouchableOpacity>
       </View>
+
       <View style={styles.tabsContainer}>
         <FlatList
-          keyExtractor={(item) => item}
-          contentContainerStyle={{ columnGap: SIZES.small }}
-          horizontal
           data={jobTypes}
-          renderItem={({ item }) => {
+          renderItem={({ item }) => (
             <TouchableOpacity
+              style={styles.tab(activeJobType, item)}
               onPress={() => {
                 setActiveJobType(item);
                 router.push(`/search/${item}`);
               }}
             >
               <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
-            </TouchableOpacity>;
-          }}
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item}
+          contentContainerStyle={{ columnGap: SIZES.small }}
+          horizontal
         />
       </View>
     </View>
